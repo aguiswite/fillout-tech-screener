@@ -16,7 +16,7 @@ router.get('/:formId/filteredResponses', async (req, res, next) => {
     const filters = JSON.parse(filtersParam);
     const formId = req.params['formId'];
 
-    const {data} = await apiService.getResponses(formId);
+    const {data} = await apiService.getResponses(formId, req.query);
     let responses = filterUtil.filterResponses(data["responses"], filters);
     let pagination = paginationUtil.calculateResponsePagination(responses, limit);
     res.send({data: {...data, responses, ...pagination}});
